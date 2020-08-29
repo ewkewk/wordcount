@@ -105,8 +105,7 @@ public class WordcountApplication implements CommandLineRunner {
 			System.out.println("At least an option 'f', 'h' or 's', and an option 't' should be provided.");
 			generateHelpAndExit(options);
 		}
-		// Exit 'normally'.
-		System.exit(0);
+		// Do not exit, leaving the REST services running.
 	}
 
 	private void generateHelpAndExit(Options options) {
