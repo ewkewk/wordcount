@@ -30,27 +30,28 @@ public class WordcountApplication implements CommandLineRunner {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		if (cmd == null) {
+			System.out.println("/nCould not parse command line options. Please provide correct options.");
+			generateHelpAndExit(options);
+		}
 
 		// Pass the options on to the functions.
 		executeFunctions(options, cmd);
 	}
 
 	private void executeFunctions(Options options, CommandLine cmd) {
-		WordFrequencyCalculator wordFrequencyCalculator = new WordFrequencyCalculator();
-		String textFromCmd = "";
-		try {
-			textFromCmd = cmd.getOptionValue("t");
-		} catch (NullPointerException nullPointerException) {
-			System.out.print("\nA problem arose while processing option 't'.");
+		if (!cmd.hasOption("t") || cmd.getOptionValue("t").isBlank()){
 			System.out.print("\nOption 't' should be non null and filled.\n\n");
 			generateHelpAndExit(options);
 		}
+		String textFromCmd = cmd.getOptionValue("t");
+		WordFrequencyCalculator wordFrequencyCalculator = new WordFrequencyCalculator();
 		if (cmd.hasOption("f")) {
 			int highestFrequency = -1;
 			try {
 				highestFrequency = wordFrequencyCalculator.calculateHighestFrequency(textFromCmd);
 			} catch (IllegalArgumentException illegalArgumentException) {
-				System.out.print("\nA problem arose while processing option 'w'.\n");
+				System.out.print("\nA problem arose while processing option 'f'.\n");
 				System.out.print(illegalArgumentException.getMessage() + "\n\n");
 				generateHelpAndExit(options);
 			}
@@ -58,17 +59,17 @@ public class WordcountApplication implements CommandLineRunner {
 			System.out.print("\n\tText:     \"" + textFromCmd + "\".\n");
 			System.out.print("\n\tResult:   '" + highestFrequency + "'.\n\n\n");
 		} else if (cmd.hasOption("s")) {
+			if (!cmd.hasOption("w") || cmd.getOptionValue("w").isBlank()){
+				System.out.print("\nOption 'w' should be non null.\n\n");
+				generateHelpAndExit(options);
+			}
 			String wordFromCmd = cmd.getOptionValue("w");
 			int frequencyForWord = -1;
 			try {
 				frequencyForWord = wordFrequencyCalculator.calculateFrequencyForWord(textFromCmd, wordFromCmd);
 			} catch (IllegalArgumentException illegalArgumentException) {
-				System.out.print("\nA problem arose while processing option 'w'.\n");
+				System.out.print("\nA problem arose while processing option 's'.\n");
 				System.out.print(illegalArgumentException.getMessage() + "\n\n");
-				generateHelpAndExit(options);
-			} catch (NullPointerException nullPointerException) {
-				System.out.print("\nA problem arose while processing option 'w'.");
-				System.out.print("\nOption 'w' should be non null.\n\n");
 				generateHelpAndExit(options);
 			}
 			System.out.print("\n\n\tFunction: 'calculate-frequency-in-text-for-word'\"\n");
@@ -76,6 +77,10 @@ public class WordcountApplication implements CommandLineRunner {
 			System.out.print("\n\tWord:     \"" + wordFromCmd + "\".\n");
 			System.out.print("\n\tResult:   '" + frequencyForWord + "'.\n\n\n");
 		} else if (cmd.hasOption("h")) {
+			if(!cmd.hasOption("n") || cmd.getOptionValue("n").isBlank()){
+				System.out.print("\nOption 'n' should be non null.\n\n");
+				generateHelpAndExit(options);
+			}
 			int intNFromCmd;
 			List<WordFrequency> headWordFrequencyList = new ArrayList<>();
 			try {
@@ -84,12 +89,8 @@ public class WordcountApplication implements CommandLineRunner {
 			} catch (NumberFormatException numberFormatException) {
 				System.out.println("Option 'n' should be numeric and an integer.");
 				generateHelpAndExit(options);
-			} catch (NullPointerException nullPointerException) {
-				System.out.print("\nA problem arose while processing option 'n'.");
-				System.out.print("\nOption 'n' should be non null.\n\n");
-				generateHelpAndExit(options);
 			} catch (IllegalArgumentException illegalArgumentException) {
-				System.out.print("\nA problem arose while processing option 'n'.\n");
+				System.out.print("\nA problem arose while processing option 'h'.\n");
 				System.out.print(illegalArgumentException.getMessage() + "\n\n");
 				generateHelpAndExit(options);
 			}
