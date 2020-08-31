@@ -26,7 +26,7 @@ public class WordcountApplication implements CommandLineRunner {
 		CommandLineParser parser = new DefaultParser();
 		CommandLine cmd = null;
 		try {
-			cmd = parser.parse( options, args);
+			cmd = parser.parse(options, args);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -40,7 +40,7 @@ public class WordcountApplication implements CommandLineRunner {
 	}
 
 	private void executeFunctions(Options options, CommandLine cmd) {
-		if (!cmd.hasOption("t") || cmd.getOptionValue("t").isBlank()){
+		if (!cmd.hasOption("t") || cmd.getOptionValue("t").isBlank()) {
 			System.out.print("\nOption 't' should be non null and filled.\n\n");
 			generateHelpAndExit(options);
 		}
@@ -59,7 +59,7 @@ public class WordcountApplication implements CommandLineRunner {
 			System.out.print("\n\tText:     \"" + textFromCmd + "\".\n");
 			System.out.print("\n\tResult:   '" + highestFrequency + "'.\n\n\n");
 		} else if (cmd.hasOption("s")) {
-			if (!cmd.hasOption("w") || cmd.getOptionValue("w").isBlank()){
+			if (!cmd.hasOption("w") || cmd.getOptionValue("w").isBlank()) {
 				System.out.print("\nOption 'w' should be non null.\n\n");
 				generateHelpAndExit(options);
 			}
@@ -77,7 +77,7 @@ public class WordcountApplication implements CommandLineRunner {
 			System.out.print("\n\tWord:     \"" + wordFromCmd + "\".\n");
 			System.out.print("\n\tResult:   '" + frequencyForWord + "'.\n\n\n");
 		} else if (cmd.hasOption("h")) {
-			if(!cmd.hasOption("n") || cmd.getOptionValue("n").isBlank()){
+			if (!cmd.hasOption("n") || cmd.getOptionValue("n").isBlank()) {
 				System.out.print("\nOption 'n' should be non null.\n\n");
 				generateHelpAndExit(options);
 			}
@@ -112,7 +112,7 @@ public class WordcountApplication implements CommandLineRunner {
 	private void generateHelpAndExit(Options options) {
 		// Generate the help statement
 		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp( "ant", options);
+		formatter.printHelp("ant", options);
 		// Exit with an error code.
 		System.exit(-1);
 	}

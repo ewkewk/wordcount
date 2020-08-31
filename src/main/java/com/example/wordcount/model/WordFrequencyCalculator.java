@@ -48,7 +48,7 @@ public class WordFrequencyCalculator implements WordFrequencyAnalyzer {
     @Override
     public List<WordFrequency> calculateMostFrequentNWords(String text, int n) {
         // Check if 'n' is a non zero positive number.
-        if (n < 1){
+        if (n < 1) {
             throw new IllegalArgumentException("The number 'n' should be a non zero positive value. The value provided is '" + n + "'.");
         }
 
@@ -73,14 +73,15 @@ public class WordFrequencyCalculator implements WordFrequencyAnalyzer {
 
     /**
      * Searches the {@param wordFrequencyList} for the {@param wordToAdd}.
+     *
      * @param wordFrequencyList List where the filling is in progress.
-     * @param wordToAdd String containing the word to add.
+     * @param wordToAdd         String containing the word to add.
      * @return the number of the index if found, or -1 otherwise.
      */
     private int findIndexOfWord(List<WordFrequency> wordFrequencyList, String wordToAdd) {
         int index = 0;
         // Browse the list.
-        for(WordFrequency wordFrequency : wordFrequencyList) {
+        for (WordFrequency wordFrequency : wordFrequencyList) {
             if (wordFrequency.getWord().equals(wordToAdd)) {
                 // Return the index of the word found.
                 return index;
@@ -93,6 +94,7 @@ public class WordFrequencyCalculator implements WordFrequencyAnalyzer {
 
     /**
      * Ensures that a word is filled, in lowercase, is a single word only, composed by regular a-z characters.
+     *
      * @param word the word String provided
      * @return a normalized and validated word String.
      * @throws IllegalArgumentException if the word cannot be validated.

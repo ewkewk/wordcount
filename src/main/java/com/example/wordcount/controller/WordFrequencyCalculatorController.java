@@ -2,7 +2,6 @@ package com.example.wordcount.controller;
 
 import com.example.wordcount.model.WordFrequency;
 import com.example.wordcount.model.WordFrequencyCalculator;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,15 +9,6 @@ import java.util.List;
 
 @RestController
 public class WordFrequencyCalculatorController {
-
-    @Value("text")
-    private String text;
-
-    @Value("word")
-    private String word;
-
-    @Value("n")
-    private String n;
 
     @GetMapping(value = "/calculate-highest-frequency-in-text/{text}")
     int calculateHighest(@PathVariable String text) {
